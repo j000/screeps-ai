@@ -58,7 +58,7 @@ CreepBuilder.prototype.giveEnergy = function(site) {
 		if(site) {
 			var closest = site.pos.findClosestByPath(creepsNear.concat(this.creep),{
 				filter: function(c) {
-					if(c.energy == 0) {
+					if(c.carry.energy == 0) {
 						return true;
 					}
 				}
@@ -72,8 +72,9 @@ CreepBuilder.prototype.giveEnergy = function(site) {
 		}
 		for(var n in creepsNear){
 			if(creepsNear[n].memory.role === 'CreepBuilder'){
-				if(creepsNear[n].memory['last-energy'] > creepsNear[n].energy) {
-					this.creep.transferEnergy(creepsNear[n]);
+				if(creepsNear[n].memory['last-energy'] > creepsNear[n].carry.energy) {
+					//this.creep.transferEnergy(creepsNear[n]);
+					this.creep.transfer(creepsNear[n], RESOURCE_ENERGY);
 				}
 			}
 		}
