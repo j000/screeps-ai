@@ -102,7 +102,7 @@ Constructions.prototype.constructStructure = function(creep) {
     var avoidArea = creep.getAvoidedArea();
 
     if(this.sites.length != 0) {
-        site = creep.creep.pos.findClosest(this.sites);
+        site = creep.creep.pos.findClosestByPath(this.sites);
         creep.creep.moveTo(site, {avoid: avoidArea});
         creep.creep.build(site);
 

@@ -31,7 +31,7 @@ Resources.prototype.getSources = function(room) {
 
 						var targets = src.pos.findInRange(FIND_HOSTILE_CREEPS, 3);
 						if(targets.length == 0) {
-						    return true;
+							return true;
 						}
 
 						return false;

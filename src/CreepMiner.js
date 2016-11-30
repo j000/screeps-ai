@@ -48,18 +48,21 @@ CreepMiner.prototype.act = function() {
 	if(this.creep.energy == this.creep.energyCapacity) {
 		//return;
 	}
+	console.log('Miner harvesting '+this.resource.pos);
 	this.creep.moveTo(this.resource, {avoid: avoidArea});
 	this.creep.harvest(this.resource);
 	this.remember('last-energy', this.creep.energy);
 }
 
 CreepMiner.prototype.giveEnergy = function() {
+	console.log('Miner giving energy');
 	var creepsNear = this.creep.pos.findInRange(FIND_MY_CREEPS, 1);
 	if(creepsNear.length){
 		for(var n in creepsNear){
 			if(creepsNear[n].memory.role === 'CreepMiner'){
 				if(creepsNear[n].memory['last-energy'] == creepsNear[n].energy && creepsNear[n].energy < creepsNear[n].energyCapacity) {
-					this.creep.transferEnergy(creepsNear[n]);
+					//this.creep.transferEnergy(creepsNear[n]);
+					this.creep.transfer(creepsNear[n],RESOURCE_ENERGY);
 				}
 			}
 		}

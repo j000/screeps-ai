@@ -56,7 +56,7 @@ CreepBuilder.prototype.giveEnergy = function(site) {
 	var creepsNear = this.creep.pos.findInRange(FIND_MY_CREEPS, 1);
 	if(creepsNear.length){
 		if(site) {
-			var closest = site.pos.findClosest(creepsNear.concat(this.creep),{
+			var closest = site.pos.findClosestByPath(creepsNear.concat(this.creep),{
 				filter: function(c) {
 					if(c.energy == 0) {
 						return true;
@@ -65,7 +65,8 @@ CreepBuilder.prototype.giveEnergy = function(site) {
 			});
 
 			if(closest != this.creep) {
-				this.creep.transferEnergy(closest);
+				//this.creep.transferEnergy(closest);
+				this.creep.transfer(closest, RESOURCE_ENERGY);
 			}
 			return;
 		}

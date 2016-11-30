@@ -28,10 +28,10 @@ function CreepCarrier(creep, depositManager, resourceManager, constructionsManag
 CreepCarrier.prototype.init = function() {
 	this.remember('role', 'CreepCarrier');
 	this.depositFor = this.remember('depositFor') || 2;
-	
-    if(this.creep.fatigue != 0) {
-        return;
-    }
+
+	if(this.creep.fatigue != 0) {
+		return;
+	}
 
 	if(!this.remember('source')) {
 		var src = this.resourceManager.getAvailableResource();
@@ -94,7 +94,8 @@ CreepCarrier.prototype.depositEnergy = function() {
 	if(this.depositFor == DEPOSIT_FOR.POPULATION) {
 		var deposit = this.getDeposit();
 		this.creep.moveTo(deposit, {avoid: avoidArea});
-		this.creep.transferEnergy(deposit);
+		//this.creep.transferEnergy(deposit);
+		this.creep.transfer(deposit, RESOURCE_ENERGY);
 	}
 
 	if(this.depositFor == DEPOSIT_FOR.CONSTRUCTION) {
@@ -179,10 +180,12 @@ CreepCarrier.prototype.harvest = function() {
 	if(creepsNear.length){
 		for(var n in creepsNear){
 			if(creepsNear[n].memory.role === 'CreepMiner' && creepsNear[n].energy != 0){
-				creepsNear[n].transferEnergy(this.creep);
+				//creepsNear[n].transferEnergy(this.creep);
+				creepsNear[n].transfer(this.creep, RESOURCE_ENERGY);
 			}
-            if(creepsNear[n].memory.role === 'CreepBuilder'){
-                this.creep.transferEnergy(creepsNear[n]);
+			if(creepsNear[n].memory.role === 'CreepBuilder'){
+				//this.creep.transferEnergy(creepsNear[n]);
+				this.creep.transfer(creepsNear[n], RESOURCE_ENERGY);
 			}
 		}
 	}
