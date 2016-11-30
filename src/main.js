@@ -1,5 +1,5 @@
 module.exports.loop = function () {
-
+console.log('CPU: '+Game.cpu.tickLimit+' bucket: '+Game.cpu.bucket+' limit: '+Game.cpu.limit);
 	var HelperFunctions = require('HelperFunctions');
 	var RoomHandler = require('RoomHandler');
 	var ScoutHandler = require('ScoutHandler');
@@ -46,5 +46,5 @@ module.exports.loop = function () {
 	ScoutHandler.spawnNewScouts();
 
 	HelperFunctions.garbageCollection();
-
+console.log('CPU used: '+Game.cpu.getUsed());
 }
