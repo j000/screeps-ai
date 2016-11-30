@@ -200,22 +200,46 @@ Room.prototype.distributeResources = function(type) {
 	var counter = 0;
 	var source = 0;
 
+	var limits = [];
+	for (let i in sources) {
+		limits[sources[i]]=0;
+		let tmp = sources[i].pos;
+		for (let x in [-1, 0, 1]) {
+			for (let y in [-1, 0, 1]) {
+				if (x == 0 && y == 0)
+					continue;
+				if (Game.map.getTerrainAt(tmp.x+x, tmp.y+y, tmp.room) != 'wall') {
+					++limits[sources[i]];
+				}
+			}
+		}
+	}
+
 	for(var i = 0; i < this.creeps.length; i++) {
 		var creep = this.creeps[i];
 		if(creep.remember('role') != type) {
 			continue;
 		}
 
-		if(!sources[source]) {
+		if (!limits[source]) {
 			continue;
 		}
 
 		creep.remember('source', sources[source].id);
+		if (--limits[source] == 0) {
+			++source;
+		}
+		/*
+		if(!sources[source]) {
+			continue;
+		}
+
 		counter++;
 		if(counter >= perSource) {
 			counter = 0;
 			source++;
 		}
+		*/
 	}
 };
 

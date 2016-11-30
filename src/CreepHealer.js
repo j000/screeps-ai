@@ -9,7 +9,7 @@ CreepHealer.prototype.init = function() {
     if(!this.remember('srcRoom')) {
 		this.remember('srcRoom', this.creep.room.name);
 	}
-    
+
     if(this.creep.fatigue != 0) {
         return;
     }

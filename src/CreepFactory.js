@@ -62,7 +62,7 @@ CreepFactory.prototype.new = function(creepType, spawn) {
 	var name = null;
 	do {
 		++id;
-		name = creepType+'-'+id;
+		name = creepType.replace('Creep','')+'-'+id;
 	} while (Game.creeps[name] != undefined)
 	var creepLevel = this.population.getTotalPopulation() / this.population.populationLevelMultiplier;
 	var resourceLevel = this.depositManager.getFullDeposits().length / 4;
