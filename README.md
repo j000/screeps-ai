@@ -1,6 +1,8 @@
 # Screeps AI #
 
-This my AI for the game [screeps.com](http://www.screeps.com). The grunt script is taken basically as is from [the screeps support wiki](http://support.screeps.com/hc/en-us/articles/203022512-Commiting-local-scripts-using-Grunt).
+### Check out original at https://benjaminhorn.io/code/my-screeps-ai/
+
+This my forked AI for the game [screeps.com](http://www.screeps.com). The grunt script is taken basically as is from [the screeps support wiki](http://support.screeps.com/hc/en-us/articles/203022512-Commiting-local-scripts-using-Grunt).
 
 # Usage #
 
