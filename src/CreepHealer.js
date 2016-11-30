@@ -34,7 +34,7 @@ CreepHealer.prototype.act = function() {
 }
 
 CreepHealer.prototype.getInjuredCreep = function() {
-    return this.creep.pos.findClosest(FIND_MY_CREEPS, {
+    return this.creep.pos.findClosestByPath(FIND_MY_CREEPS, {
         filter: function(c) {
             if(c.hits < c.hitsMax) {
                 return true;

@@ -39,7 +39,7 @@ CreepSoldier.prototype.attackHostiles = function() {
         }
     });
     if(targets.length) {
-        var closest = this.creep.pos.findClosest(targets);
+        var closest = this.creep.pos.findClosestByPath(targets);
         this.creep.moveTo(closest, {avoid: avoidArea});
         this.creep.attack(closest);
         return true;

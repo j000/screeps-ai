@@ -49,7 +49,7 @@ CreepBuilder.prototype.act = function() {
 	if(this.creep.pos.inRangeTo(site, 3)) {
 		this.giveEnergy(site);
 	}
-	this.remember('last-energy', this.creep.energy);
+	this.remember('last-energy', this.creep.carry.energy);
 };
 
 CreepBuilder.prototype.giveEnergy = function(site) {

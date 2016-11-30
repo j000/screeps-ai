@@ -74,7 +74,7 @@ CreepBase.moveToNewRoom = function() {
 			this.creep.say('Moving');
 
 			var exitDir = this.creep.room.findExitTo(targetRoom);
-			var exit = this.creep.pos.findClosest(exitDir);
+			var exit = this.creep.pos.findClosestByPath(exitDir);
 			this.creep.moveTo(exit, {avoid: avoidArea});
 			return true;
 		} else {
@@ -115,7 +115,7 @@ CreepBase.randomMovement = function() {
 	var lastPos = this.remember('last-pos');
 	var currPos = this.creep.pos;
 
-	if(lastEnergy != this.creep.energy) {
+	if(lastEnergy != this.creep.carry.energy) {
 		moveAttempts = this.remember('move-attempts', 0);
 	}
 
@@ -140,7 +140,7 @@ CreepBase.randomMovement = function() {
 	}
 
 	this.remember('last-pos', {x:this.creep.pos.x, y:this.creep.pos.y});
-	this.remember('last-energy', this.creep.energy);
+	this.remember('last-energy', this.creep.carry.energy);
 
 	return false;
 };

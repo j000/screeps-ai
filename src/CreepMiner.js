@@ -45,17 +45,15 @@ CreepMiner.prototype.act = function() {
 	var avoidArea = this.getAvoidedArea();
 
 	this.giveEnergy();
-	if(this.creep.energy == this.creep.energyCapacity) {
+	if(this.creep.carry.energy == this.creep.carryCapacity) {
 		//return;
 	}
-	console.log('Miner harvesting '+this.resource.pos);
 	this.creep.moveTo(this.resource, {avoid: avoidArea});
 	this.creep.harvest(this.resource);
-	this.remember('last-energy', this.creep.energy);
+	this.remember('last-energy', this.creep.carry.energy);
 }
 
 CreepMiner.prototype.giveEnergy = function() {
-	console.log('Miner giving energy');
 	var creepsNear = this.creep.pos.findInRange(FIND_MY_CREEPS, 1);
 	if(creepsNear.length){
 		for(var n in creepsNear){

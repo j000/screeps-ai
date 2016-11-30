@@ -15,7 +15,22 @@ function Room(room, roomHandler) {
 	this.resourceManager = new Resources(this.room, this.population);
 	this.constructionManager = new Constructions(this.room);
 	this.population.typeDistribution.CreepBuilder.max = 4;
-	this.population.typeDistribution.CreepMiner.max = (this.resourceManager.getSources().length)*2;
+	var miners = 0;
+	var sources = this.resourceManager.getSources();
+	for (let i in sources) {
+		let tmp = sources[i].pos;
+		for (let x = -1; x < 2; ++x) {
+			for (let y = -1; y < 2; ++y) {
+				if (x == 0 && y == 0)
+					continue;
+				if (Game.map.getTerrainAt(tmp.x+x, tmp.y+y, tmp.roomName) != 'wall') {
+					++miners;
+				}
+			}
+		}
+	}
+	this.population.typeDistribution.CreepMiner.max = miners;
+	//this.population.typeDistribution.CreepMiner.max = (this.resourceManager.getSources().length)*2;
 	this.population.typeDistribution.CreepCarrier.max = this.population.typeDistribution.CreepBuilder.max+this.population.typeDistribution.CreepMiner.max;
 	this.creepFactory = new CreepFactory(this.depositManager, this.resourceManager, this.constructionManager, this.population, this.roomHandler);
 }

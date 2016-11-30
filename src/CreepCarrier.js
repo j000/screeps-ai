@@ -65,12 +65,12 @@ CreepCarrier.prototype.getDepositFor = function() {
 }
 
 CreepCarrier.prototype.act = function() {
-    var continueDeposit = false;
-	if(this.creep.energy != 0 && this.remember('last-action') == ACTIONS.DEPOSIT) {
+	var continueDeposit = false;
+	if(this.creep.carry.energy != 0 && this.remember('last-action') == ACTIONS.DEPOSIT) {
 		continueDeposit = true;
 	}
 
-	if(this.creep.energy < this.creep.energyCapacity && continueDeposit == false) {
+	if(this.creep.carry.energy < this.creep.carryCapacity && continueDeposit == false) {
 		if(this.pickupEnergy()) {
 			return;
 		}
@@ -151,13 +151,13 @@ CreepCarrier.prototype.getDeposit = function() {
 };
 CreepCarrier.prototype.pickupEnergy = function() {
 	var avoidArea = this.getAvoidedArea();
-	if(this.creep.energy == this.creep.energyCapacity) {
+	if(this.creep.carry.energy == this.creep.carry.energyCapacity) {
 		return false;
 	}
 
 	var targets = this.creep.pos.findInRange(FIND_DROPPED_ENERGY, 3, {avoid: avoidArea});
 	if(targets.length) {
-		var target = this.creep.pos.findClosest(targets);
+		var target = this.creep.pos.findClosestByPath(targets);
 		this.creep.moveTo(target, {avoid: avoidArea});
 	    this.creep.pickup(target);
 		return true;

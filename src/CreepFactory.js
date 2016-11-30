@@ -21,7 +21,7 @@ CreepFactory.prototype.load = function(creep) {
 	var loadedCreep = null;
 	var role = creep.memory.role;
 	if(!role) {
-		role = creep.name.split('-')[0];
+		role = 'Creep'+creep.name.split('-')[0];
 	}
 
 	switch(role) {

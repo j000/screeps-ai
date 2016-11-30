@@ -70,7 +70,7 @@ Deposits.prototype.getClosestEmptyDeposit = function(creep) {
 	var resources = this.getEmptyDeposits();
 	var resource = false;
 	if(resources.length != 0) {
-		resource = creep.pos.findClosest(resources);
+		resource = creep.pos.findClosestByPath(resources);
 	}
 	if(!resource) {
 		resource = this.getSpawnDeposit();
