@@ -103,8 +103,9 @@ Constructions.prototype.constructStructure = function(creep) {
 
     if(this.sites.length != 0) {
         site = creep.creep.pos.findClosestByPath(this.sites);
-        creep.creep.moveTo(site, {avoid: avoidArea});
-        creep.creep.build(site);
+        if (creep.creep.build(site) == ERR_NOT_IN_RANGE) {
+            creep.creep.moveTo(site, {avoid: avoidArea});
+        }
 
         return site;
     }
@@ -115,16 +116,18 @@ Constructions.prototype.constructStructure = function(creep) {
 
     if(this.damagedStructures.length != 0) {
         site = creep.creep.pos.findClosestByPath(this.damagedStructures);
-        creep.creep.moveTo(site, {avoid: avoidArea});
-        creep.creep.repair(site);
+        if (creep.creep.repair(site) == ERR_NOT_IN_RANGE) {
+            creep.creep.moveTo(site, {avoid: avoidArea});
+        }
 
         return site;
     }
 
     if(this.upgradeableStructures.length != 0) {
         site = creep.creep.pos.findClosestByPath(this.upgradeableStructures);
-        creep.creep.moveTo(site, {avoid: avoidArea});
-        creep.creep.repair(site);
+        if (creep.creep.repair(site) == ERR_NOT_IN_RANGE) {
+            creep.creep.moveTo(site, {avoid: avoidArea});
+        }
 
         return site;
     }

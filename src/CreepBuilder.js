@@ -42,8 +42,9 @@ CreepBuilder.prototype.act = function() {
 
 	if(!site) {
 		var site = this.constructionManager.getController();
-		this.creep.moveTo(site, {avoid: avoidArea});
-		this.creep.upgradeController(site);
+		if (this.creep.upgradeController(site) == ERR_NOT_IN_RANGE) {
+			this.creep.moveTo(site, {avoid: avoidArea});
+		}
 	}
 
 	if(this.creep.pos.inRangeTo(site, 3)) {
@@ -57,11 +58,7 @@ CreepBuilder.prototype.giveEnergy = function(site) {
 	if(creepsNear.length){
 		if(site) {
 			var closest = site.pos.findClosestByPath(creepsNear.concat(this.creep),{
-				filter: function(c) {
-					if(c.carry.energy == 0) {
-						return true;
-					}
-				}
+				filter: (c) => (c.carry.energy == 0)
 			});
 
 			if(closest != this.creep) {
