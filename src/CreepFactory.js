@@ -21,7 +21,7 @@ CreepFactory.prototype.load = function(creep) {
 	var loadedCreep = null;
 	var role = creep.memory.role;
 	if(!role) {
-		role = 'Creep'+creep.name.split('-')[0];
+		role = 'Creep'+creep.name.replace(/[0-9]/g, '');
 	}
 
 	switch(role) {
@@ -62,7 +62,7 @@ CreepFactory.prototype.new = function(creepType, spawn) {
 	var name = null;
 	do {
 		++id;
-		name = creepType.replace('Creep','')+'-'+id;
+		name = creepType.replace('Creep','')+id;
 	} while (Game.creeps[name] != undefined)
 	var creepLevel = this.population.getTotalPopulation() / this.population.populationLevelMultiplier;
 	var resourceLevel = this.depositManager.getFullDeposits().length / 4;
