@@ -202,13 +202,13 @@ Room.prototype.distributeResources = function(type) {
 
 	var limits = [];
 	for (let i in sources) {
-		limits[sources[i]]=0;
+		limits[sources[i]] = 0;
 		let tmp = sources[i].pos;
-		for (let x in [-1, 0, 1]) {
-			for (let y in [-1, 0, 1]) {
+		for (let x = -1; x < 2; ++x) {
+			for (let y = -1; y < 2; ++y) {
 				if (x == 0 && y == 0)
 					continue;
-				if (Game.map.getTerrainAt(tmp.x+x, tmp.y+y, tmp.room) != 'wall') {
+				if (Game.map.getTerrainAt(tmp.x+x, tmp.y+y, tmp.roomName) != 'wall') {
 					++limits[sources[i]];
 				}
 			}
@@ -221,25 +221,14 @@ Room.prototype.distributeResources = function(type) {
 			continue;
 		}
 
-		if (!limits[source]) {
+		if (!limits[sources[source]]) {
 			continue;
 		}
 
 		creep.remember('source', sources[source].id);
-		if (--limits[source] == 0) {
+		if (--limits[sources[source]] == 0) {
 			++source;
 		}
-		/*
-		if(!sources[source]) {
-			continue;
-		}
-
-		counter++;
-		if(counter >= perSource) {
-			counter = 0;
-			source++;
-		}
-		*/
 	}
 };
 
