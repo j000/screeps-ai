@@ -1,0 +1,1 @@
+../profiler/screeps-profiler.js

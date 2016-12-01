@@ -1,5 +1,9 @@
-module.exports.loop = function () {
-console.log('CPU: '+Game.cpu.tickLimit+' bucket: '+Game.cpu.bucket+' limit: '+Game.cpu.limit);
+const profiler = require('screeps-profiler');
+
+profiler.enable();
+
+module.exports.loop = function () { profiler.wrap(function() {
+	console.log('CPU: '+Game.cpu.tickLimit+' bucket: '+Game.cpu.bucket+' limit: '+Game.cpu.limit);
 	var HelperFunctions = require('HelperFunctions');
 	var RoomHandler = require('RoomHandler');
 	var ScoutHandler = require('ScoutHandler');
@@ -47,4 +51,4 @@ console.log('CPU: '+Game.cpu.tickLimit+' bucket: '+Game.cpu.bucket+' limit: '+Ga
 
 	HelperFunctions.garbageCollection();
 console.log('CPU used: '+Game.cpu.getUsed());
-}
+});}

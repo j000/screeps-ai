@@ -81,4 +81,6 @@ CreepBuilder.prototype.giveEnergy = function(site) {
 	}
 }
 
+require('screeps-profiler').registerObject(CreepBuilder, 'CreepBuilder');
+
 module.exports = CreepBuilder;
