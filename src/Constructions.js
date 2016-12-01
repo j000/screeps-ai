@@ -1,8 +1,18 @@
 var CONST = {
     RAMPART_MAX: 500000,
     RAMPART_FIX: 50000,
-    WALL_MAX: 200000,
+    WALL_MAX: 300000000,
     WALL_FIX: 50000,
+    RAMPART_HITS_MAX: {      // Maximum health of a rampart
+        1: 0,
+        2: 300000,
+        3: 1000000,
+        4: 3000000,
+        5: 10000000,
+        6: 30000000,
+        7: 100000000,
+        8: 300000000
+    }
 };
 var Cache = require('Cache');
 
@@ -15,6 +25,12 @@ function Constructions(room) {
     this.upgradeableStructures = this.getUpgradeableStructures();
     this.controller = this.room.controller;
 };
+
+Constructions.prototype.getRampartMax = function() {
+    if (RAMPART_HITS_MAX[Math.min(this.controller.level, 8)] != null)
+        return RAMPART_HITS_MAX[Math.min(this.controller.level, 8)];
+    return CONST.RAMPART_HITS_MAX[Math.min(this.controller.level, 8)];
+}
 
 
 Constructions.prototype.getDamagedStructures = function() {
@@ -59,7 +75,7 @@ Constructions.prototype.getUpgradeableStructures = function() {
                             return false;
                         }
                         if(s.my) {
-                            if((s.hits < s.hitsMax && s.structureType != STRUCTURE_RAMPART) || (s.structureType == STRUCTURE_RAMPART && s.hits < CONST.RAMPART_MAX)) {
+                            if((s.hits < s.hitsMax && s.structureType != STRUCTURE_RAMPART) || (s.structureType == STRUCTURE_RAMPART && s.hits < this.getRampartMax())) {
 
                                 return true;
                             }
@@ -102,7 +118,7 @@ Constructions.prototype.constructStructure = function(creep) {
     var avoidArea = creep.getAvoidedArea();
 
     if(this.sites.length != 0) {
-        site = creep.creep.pos.findClosestByPath(this.sites);
+        site = creep.creep.pos.findClosestByRange(this.sites);
         if (creep.creep.build(site) == ERR_NOT_IN_RANGE) {
             creep.creep.moveTo(site, {avoid: avoidArea});
         }
@@ -111,7 +127,11 @@ Constructions.prototype.constructStructure = function(creep) {
     }
 
     if(this.controller.level <= 2) {
-        return false;
+        site = this.getController();
+        if (creep.creep.upgradeController(site) == ERR_NOT_IN_RANGE) {
+            creep.creep.moveTo(site, {avoid: avoidArea});
+        }
+        return site;
     }
 
     if(this.damagedStructures.length != 0) {

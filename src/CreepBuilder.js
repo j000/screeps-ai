@@ -54,7 +54,7 @@ CreepBuilder.prototype.act = function() {
 };
 
 CreepBuilder.prototype.giveEnergy = function(site) {
-	var creepsNear = this.creep.pos.findInRange(FIND_MY_CREEPS, 1);
+	var creepsNear = this.creep.pos.findInRange(FIND_MY_CREEPS, 1, { filter: (c) => (c.memory.role != 'CreepCarrier' && c.memory.role != 'CreepBuilder')});
 	if(creepsNear.length){
 		if(site) {
 			var closest = site.pos.findClosestByPath(creepsNear.concat(this.creep),{
