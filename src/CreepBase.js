@@ -66,26 +66,26 @@ CreepBase.moveToNewRoom = function() {
 	var srcRoom = this.remember('srcRoom');
 	var avoidArea = this.getAvoidedArea();
 
-	if(targetRoom) {
-		if(targetRoom != this.creep.room.name) {
-			this.creep.memory = {};
-			this.remember('srcRoom', srcRoom);
-			this.remember('targetRoom', targetRoom);
-			this.creep.say('Moving');
-
-			var exitDir = this.creep.room.findExitTo(targetRoom);
-			var exit = this.creep.pos.findClosestByPath(exitDir);
-			this.creep.moveTo(exit, {avoid: avoidArea});
-			return true;
-		} else {
-			this.creep.moveTo(30,30);
-			if(this.creep.pos.x < 47 && this.creep.pos.x > 2 && this.creep.pos.y < 47 && this.creep.pos.y > 2) {
-				var targetRoom = this.remember('targetRoom', false);
-			}
-			var srcRoom = this.remember('srcRoom', this.creep.room.name);
-		}
-	} else {
+	if(!targetRoom)
 		return false;
+
+	console.log(this.creep.name+' moving to new room');
+	if(targetRoom != this.creep.room.name) {
+		this.creep.memory = {};
+		this.remember('srcRoom', srcRoom);
+		this.remember('targetRoom', targetRoom);
+		this.creep.say('Moving');
+
+		var exitDir = this.creep.room.findExitTo(targetRoom);
+		var exit = this.creep.pos.findClosestByPath(exitDir);
+		this.creep.moveTo(exit, {avoid: avoidArea});
+		return true;
+	} else {
+		this.creep.moveTo(30,30);
+		if(this.creep.pos.x < 47 && this.creep.pos.x > 2 && this.creep.pos.y < 47 && this.creep.pos.y > 2) {
+			var targetRoom = this.remember('targetRoom', false);
+		}
+		var srcRoom = this.remember('srcRoom', this.creep.room.name);
 	}
 
 }

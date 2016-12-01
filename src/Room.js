@@ -87,7 +87,7 @@ Room.prototype.populate = function() {
 		}
 
 		if((this.depositManager.energy() / this.depositManager.energyCapacity()) > 0.2 || this.population.getTotalPopulation() < 10) {
-			var types = this.population.getTypes()
+			var types = this.population.getTypes();
 			for(var i = 0; i < types.length; i++) {
 				var ctype = this.population.getType(types[i]);
 				if(this.depositManager.deposits.length >= ctype.minExtensions) {
@@ -110,11 +110,17 @@ Room.prototype.loadCreeps = function() {
 			this.creeps.push(c);
 		}
 	}
+	this.distribute();
+};
+
+Room.prototype.distribute = function() {
 	this.distributeBuilders();
 	this.distributeResources('CreepMiner');
 	this.distributeResources('CreepCarrier');
 	this.distributeCarriers();
 };
+
+
 Room.prototype.distributeBuilders = function() {
 	var builderStats = this.population.getType('CreepBuilder');
 	if(this.depositManager.spawns.length == 0) {
@@ -164,7 +170,7 @@ Room.prototype.distributeCarriers = function() {
 			continue;
 		}
 		carriers.push(creep);
-		if(counter%3) {
+		if(counter%2) {
 			// Population
 			creep.setDepositFor(2);
 		} else {
@@ -177,28 +183,23 @@ Room.prototype.distributeCarriers = function() {
 	counter = 0;
 	for(var i = 0; i < carriers.length; i++) {
 		var creep = carriers[i];
-		if(creep.remember('role') != 'CreepCarrier') {
-			continue;
-		}
 		if(!builders[counter]) {
 			continue;
 		}
 		var id = creep.remember('target-worker');
 		if(!Game.getObjectById(id)) {
-			creep.remember('target-worker', builders[counter].id);
-		}
-		counter++;
-		if(counter >= builders.length) {
-			counter = 0;
+			id = creep.remember('target-worker', builders[counter++].id);
+			if(counter >= builders.length) {
+				counter = 0;
+			}
 		}
 	}
 };
 
 Room.prototype.distributeResources = function(type) {
 	var sources = this.resourceManager.getSources();
-	var perSource = Math.ceil(this.population.getType(type).total/sources.length);
-	var counter = 0;
 	var source = 0;
+	var total = 0;
 
 	var limits = [];
 	for (let i in sources) {
@@ -210,10 +211,16 @@ Room.prototype.distributeResources = function(type) {
 					continue;
 				if (Game.map.getTerrainAt(tmp.x+x, tmp.y+y, tmp.roomName) != 'wall') {
 					++limits[sources[i]];
+					++total;
 				}
 			}
 		}
 	}
+	var perSource = Math.ceil(this.population.getType(type).total/total);
+	for (let i in limits) {
+		limits[i] *= perSource;
+	}
+
 
 	for(var i = 0; i < this.creeps.length; i++) {
 		var creep = this.creeps[i];
@@ -221,14 +228,9 @@ Room.prototype.distributeResources = function(type) {
 			continue;
 		}
 
-		if (!limits[sources[source]]) {
-			continue;
-		}
-
 		creep.remember('source', sources[source].id);
-		if (--limits[sources[source]] == 0) {
+		if (--limits[sources[source]] == 0)
 			++source;
-		}
 	}
 };
 

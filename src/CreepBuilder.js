@@ -38,10 +38,12 @@ CreepBuilder.prototype.act = function() {
 	var avoidArea = this.getAvoidedArea();
 	if(!this.forceControllerUpgrade) {
 		site = this.constructionManager.constructStructure(this);
-	}
 
-	if(!site) {
-		var site = this.constructionManager.getController();
+		if(this.creep.pos.inRangeTo(site, 3)) {
+			this.giveEnergy(site);
+		}
+	} else {
+		site = this.constructionManager.getController();
 		if (this.creep.upgradeController(site) == ERR_NOT_IN_RANGE) {
 			this.creep.moveTo(site, {avoid: avoidArea});
 		}
