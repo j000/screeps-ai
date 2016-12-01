@@ -241,4 +241,7 @@ CreepFactory.prototype.new = function(creepType, spawn) {
 	spawn.createCreep(abilities, name, {role: creepType});
 };
 
+
+require('screeps-profiler').registerObject(CreepFactory, 'CreepFactory');
+
 module.exports = CreepFactory;

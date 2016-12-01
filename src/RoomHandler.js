@@ -37,6 +37,8 @@ RoomHandler.requestReinforcement = function(room) {
         }
 
     }
-}
+};
+
+require('screeps-profiler').registerObject(RoomHandler, 'RoomHandler');
 
 module.exports = RoomHandler;

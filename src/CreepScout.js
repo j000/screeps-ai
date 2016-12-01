@@ -51,4 +51,6 @@ CreepScout.prototype.conquer = function() {
     this.creep.claimController(controller);
 }
 
+require('screeps-profiler').registerObject(CreepScout, 'CreepScout');
+
 module.exports = CreepScout;

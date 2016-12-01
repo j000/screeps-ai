@@ -43,4 +43,6 @@ CreepHealer.prototype.getInjuredCreep = function() {
     })
 }
 
+require('screeps-profiler').registerObject(CreepHealer, 'CreepHealer');
+
 module.exports = CreepHealer;

@@ -67,4 +67,6 @@ CreepMiner.prototype.giveEnergy = function() {
 	}
 }
 
+require('screeps-profiler').registerObject(CreepMiner, 'CreepMiner');
+
 module.exports = CreepMiner;

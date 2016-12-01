@@ -64,4 +64,6 @@ CreepShooter.prototype.attackSpawns = function() {
     };
 }
 
+require('screeps-profiler').registerObject(CreepShooter, 'CreepShooter');
+
 module.exports = CreepShooter;

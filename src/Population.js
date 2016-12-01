@@ -123,6 +123,8 @@ Population.prototype.getNextExpectedDeath = function() {
 	);
 };
 
+require('screeps-profiler').registerObject(Population, 'Population');
+
 module.exports = Population;
 
 // Private

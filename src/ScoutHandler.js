@@ -36,6 +36,8 @@ ScoutHandler.spawnNewScouts = function() {
             //rooms[n].creepFactory.new('CreepScout', rooms[n].depositManager.getSpawnDeposit());
         }
     }
-}
+};
+
+require('screeps-profiler').registerObject(ScoutHandler, 'ScoutHandler');
 
 module.exports = ScoutHandler;

@@ -145,4 +145,6 @@ CreepBase.randomMovement = function() {
 	return false;
 };
 
+require('screeps-profiler').registerObject(CreepBase, 'CreepBase');
+
 module.exports = CreepBase;

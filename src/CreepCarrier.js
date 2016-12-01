@@ -191,4 +191,6 @@ CreepCarrier.prototype.harvest = function() {
 	}
 }
 
+require('screeps-profiler').registerObject(CreepCarrier, 'CreepCarrier');
+
 module.exports = CreepCarrier;

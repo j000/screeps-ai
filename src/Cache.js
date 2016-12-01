@@ -20,4 +20,6 @@ Cache.prototype.remember = function(key, callback, args) {
 	return this._cacheMap[key + '_' + this.randomId];
 };
 
+require('screeps-profiler').registerObject(Cache, 'Cache');
+
 module.exports = Cache;

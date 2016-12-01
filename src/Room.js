@@ -232,4 +232,6 @@ Room.prototype.distributeResources = function(type) {
 	}
 };
 
+require('screeps-profiler').registerObject(Room, 'Room');
+
 module.exports = Room;

@@ -146,5 +146,6 @@ function filterExtensions(structure) {
 	return false;
 }
 
+require('screeps-profiler').registerObject(Deposits, 'Deposits');
 
 module.exports = Deposits;

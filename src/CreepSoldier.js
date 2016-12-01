@@ -55,4 +55,6 @@ CreepSoldier.prototype.attackSpawns = function() {
     };
 }
 
+require('screeps-profiler').registerObject(CreepSoldier, 'CreepSoldier');
+
 module.exports = CreepSoldier;

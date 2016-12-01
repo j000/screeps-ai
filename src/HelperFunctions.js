@@ -21,5 +21,8 @@ HelperFunctions.garbageCollection = function() {
 			counter++;
 		}
 	}
-}
+};
+
+require('screeps-profiler').registerObject(HelperFunctions, 'HelperFunctions');
+
 module.exports = HelperFunctions;

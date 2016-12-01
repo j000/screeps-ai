@@ -42,4 +42,6 @@ Resources.prototype.getSources = function(room) {
 	);
 };
 
+require('screeps-profiler').registerObject(Resources, 'Resources');
+
 module.exports = Resources;
